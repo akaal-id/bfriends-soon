@@ -1,0 +1,14 @@
+@reference "../../app/globals.css";
+
+.main {
+  @apply min-h-screen bg-bfriends-beige text-bfriends-darkbluegray font-sans overflow-hidden relative selection:bg-bfriends-orange-100 selection:text-white;
+}
+
+.absoluteContainer {
+  @apply w-full h-full relative flex flex-col items-center justify-center min-h-screen overflow-hidden;
+}
+
+.expandedOverlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center;
+}
+

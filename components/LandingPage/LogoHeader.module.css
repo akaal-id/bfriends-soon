@@ -1,0 +1,26 @@
+.logoHeader {
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.logoImage {
+  height: 6rem;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+.logoText {
+  color: var(--color-bfriends-beige);
+  font-size: 0.4rem;
+  font-family: var(--font-pontano);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}

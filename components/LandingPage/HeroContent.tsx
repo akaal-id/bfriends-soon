@@ -1,41 +1,115 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
+import anime from "animejs";
+import styles from "./HeroContent.module.css";
 
-export default function HeroContent() {
+const SplitText = ({ text }: { text: string }) => {
+  const parts = text.split(/(\s+)/);
+  
   return (
-    <div className="relative z-30 flex flex-col items-center justify-center text-center max-w-xl px-4 mt-16 pointer-events-auto">
-      <p className="font-pontano text-xs md:text-xs tracking-[0.6em] text-bfriends-darkbluegray uppercase mb-4">
-        Opening Soon in 2026
+    <>
+      {parts.map((part, index) => {
+        if (part.match(/^\s+$/)) {
+          return <span key={index}>{part}</span>;
+        }
+        
+        return (
+          <span key={index} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+            {part.split('').map((char, charIndex) => (
+              <span 
+                key={charIndex} 
+                className="anime-char" 
+                style={{ display: 'inline-block', opacity: 0 }}
+              >
+                {char}
+              </span>
+            ))}
+          </span>
+        );
+      })}
+    </>
+  );
+};
+
+export default function HeroContent({ onButtonAnimationStart }: { onButtonAnimationStart?: () => void }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const underlineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current || !buttonRef.current || !underlineRef.current) return;
+
+    const tl = anime.timeline({
+      easing: 'easeOutExpo',
+    });
+
+    // Animate text characters
+    // Scope strictly to this component to avoid animating other elements
+    const chars = containerRef.current.querySelectorAll('.anime-char');
+
+    tl.add({
+      targets: chars,
+      opacity: [0, 1],
+      translateY: [20, 0],
+      delay: anime.stagger(30),
+      duration: 800,
+      easing: 'easeOutQuad',
+    })
+    .add({
+      targets: [buttonRef.current, underlineRef.current],
+      opacity: [0, 1],
+      translateY: [10, 0],
+      duration: 1200,
+      easing: 'easeOutQuad',
+      begin: () => {
+        if (onButtonAnimationStart) {
+          onButtonAnimationStart();
+        }
+      }
+    }, '-=600');
+
+  }, [onButtonAnimationStart]);
+
+  return (
+    <div className={styles.heroContainer} ref={containerRef}>
+      <p className={styles.heroSubtitle}>
+        <SplitText text="Opening Soon in 2026" />
       </p>
 
-      <h1 className="font-belleza text-4xl md:text-[3.6rem] text-bfriends-darkbluegray mb-10 leading-[1.1]">
-        A wellness{" "}
-        <span className="text-bfriends-orange-100 italic">journey</span> that
-        begins with becoming a{" "}
-        <span className="text-bfriends-orange-100 italic border-b-3 border-bfriends-orange-100">
-          friend to yourself.
+      <h1 className={styles.heroTitle}>
+        <SplitText text="A wellness " />
+        <span className={styles.heroHighlight}>
+          <SplitText text="journey" />
+        </span>
+        <SplitText text=" that " />
+        <SplitText text="begins with becoming a " />
+        <span className={styles.heroHighlightBorder}>
+          <SplitText text="friend to yourself." />
+          <div 
+            ref={underlineRef}
+            className={styles.heroHighlightUnderline} 
+            style={{ opacity: 0 }}
+          />
         </span>
       </h1>
 
       <button
+        ref={buttonRef}
         onClick={() => {
-          const scrollTarget = document.getElementById("subscription-form");
-          if (scrollTarget) {
-            scrollTarget.scrollIntoView({ behavior: "smooth" });
-          }
+          window.scrollTo({ top: window.innerHeight * 1.5, behavior: "smooth" });
         }}
-        className="group flex transform hover:scale-[1.02] transition-transform cursor-pointer animate-pulse"
+        className={styles.scrollButton}
+        style={{ opacity: 0 }}
       >
-        <span className="flex-1 flex items-center justify-center px-4 py-2 border border-bfriends-darkbluegray rounded-l-xl rounded-r-xl text-bfriends-darkbluegray font-normal font-pontano group-hover:bg-bfriends-orange-100/90 transition-all">
+        <span className={styles.scrollButtonText}>
           Scroll Down
         </span>
-        <span className="flex items-center justify-center px-4 border border-bfriends-darkbluegray rounded-r-xl rounded-l-xl text-bfriends-darkbluegray group-hover:bg-bfriends-orange-100/90 transition-all">
+        <span className={styles.scrollButtonIcon}>
           <ChevronDown className="w-5 h-5" />
         </span>
       </button>
     </div>
   );
 }
-

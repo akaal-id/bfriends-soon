@@ -3,11 +3,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
-interface HeroContentProps {
-  onJoinClick: () => void;
-}
-
-export default function HeroContent({ onJoinClick }: HeroContentProps) {
+export default function HeroContent() {
   return (
     <div className="relative z-30 flex flex-col items-center justify-center text-center max-w-xl px-4 mt-16 pointer-events-auto">
       <p className="font-pontano text-xs md:text-xs tracking-[0.6em] text-bfriends-darkbluegray uppercase mb-4">
@@ -24,8 +20,13 @@ export default function HeroContent({ onJoinClick }: HeroContentProps) {
       </h1>
 
       <button
-        onClick={onJoinClick}
-        className="group flex transform hover:scale-[1.02] transition-transform cursor-pointer"
+        onClick={() => {
+          const scrollTarget = document.getElementById("subscription-form");
+          if (scrollTarget) {
+            scrollTarget.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
+        className="group flex transform hover:scale-[1.02] transition-transform cursor-pointer animate-pulse"
       >
         <span className="flex-1 flex items-center justify-center px-4 py-2 border border-bfriends-darkbluegray rounded-l-xl rounded-r-xl text-bfriends-darkbluegray font-normal font-pontano group-hover:bg-bfriends-orange-100/90 transition-all">
           Scroll Down

@@ -93,7 +93,7 @@ function ScrollContent({ progress }: { progress: any }) {
         className="absolute inset-0 w-full h-full z-20 flex flex-col items-center justify-center pointer-events-none"
         style={{ opacity: contentOpacity, y: contentY, scale: contentScale }}
       >
-        <HeroContent onJoinClick={handleScrollToForm} />
+        <HeroContent />
 
         {/* Floating Images */}
         {/* Top Center */}
@@ -140,6 +140,7 @@ function ScrollContent({ progress }: { progress: any }) {
 
       {/* Layer 3: Form Content */}
       <motion.div
+        id="subscription-form"
         className="absolute z-30 w-full max-w-md p-8 bg-white/10 backdrop-blur-xl border border-white/20   text-center shadow-2xl mx-4"
         style={{ opacity: formOpacity, y: formY }}
       >
@@ -160,7 +161,7 @@ function ScrollContent({ progress }: { progress: any }) {
       {/* Copyright Footer */}
       <div className="absolute bottom-4 w-full text-center z-50 pointer-events-none">
         <p className="text-bfriends-beige text-[0.6rem] font-pontano opacity-80">
-          &copy; {new Date().getFullYear()} B Friends. All rights reserved.
+          &copy; {new Date().getFullYear()} BFriends. All rights reserved.
         </p>
       </div>
 

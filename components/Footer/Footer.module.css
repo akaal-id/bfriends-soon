@@ -24,6 +24,13 @@
   justify-content: space-between;
 }
 
+@media (max-width: 768px) {
+  .grid {
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
+
 @media (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(4, 1fr);
@@ -39,11 +46,27 @@
     width: 320px;
   }
 
+@media (max-width: 768px) {
+  .column1 {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+}
+
 .column {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 200px;
+}
+
+@media (max-width: 768px) {
+  .column {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .column2 {
@@ -53,6 +76,14 @@
     width: 420px !important;
 }
 
+@media (max-width: 768px) {
+  .column2 {
+    width: 100% !important;
+    align-items: center;
+    text-align: center;
+  }
+}
+
 .logo {
   height: 2.4rem;
   object-fit: contain;
@@ -60,11 +91,23 @@
   object-position: left;
 }
 
+@media (max-width: 768px) {
+  .logo {
+    object-position: center;
+  }
+}
+
 .address {
   font-size: 0.875rem;
   line-height: 1.6;
   opacity: 0.8;
   max-width: 250px;
+}
+
+@media (max-width: 768px) {
+  .address {
+    max-width: 100%;
+  }
 }
 
 .heading {
@@ -78,6 +121,12 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .menuList {
+    align-items: center;
+  }
 }
 
 .menuItem {
@@ -118,6 +167,14 @@
   gap: 1.5rem;
 }
 
+@media (max-width: 640px) {
+  .legalLinks {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
 .legalLink {
   text-decoration: none;
   color: inherit;
@@ -137,6 +194,17 @@
 
 .newsletterInputWrapper {
   position: relative;
+}
+
+@media (max-width: 768px) {
+  .newsletterForm {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .newsletterInputWrapper {
+    width: 100%;
+  }
 }
 
 .newsletterInput {

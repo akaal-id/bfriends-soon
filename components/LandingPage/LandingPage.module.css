@@ -85,6 +85,140 @@
   object-fit: cover;
 }
 
+/* Responsive Floating Images overrides */
+/* NOTE: We use !important in some cases to override Tailwind utility classes specifically for intermediate breakpoints 
+   where we want to deviate from the 1680px (desktop) design without changing the base classes. */
+
+@media (max-width: 1440px) {
+  .imgTop {
+    width: 28rem !important; /* Scale down from 32rem */
+  }
+  .imgLeft {
+    width: 28rem !important;
+    left: -5% !important;
+  }
+  .imgRight {
+    width: 28rem !important;
+    right: -5% !important;
+  }
+  .imgBottomLeft {
+    width: 28rem !important;
+    left: -5% !important;
+  }
+  .imgBottomRight {
+    width: 28rem !important;
+    right: -5% !important;
+  }
+}
+
+@media (max-width: 1280px) {
+  .imgTop {
+    width: 24rem !important;
+  }
+  .imgLeft {
+    width: 20rem !important;
+    left: 2% !important; /* Bring inside viewport */
+    top: 60% !important;
+  }
+  .imgRight {
+    width: 20rem !important;
+    right: 2% !important; /* Bring inside viewport */
+    top: 60% !important;
+  }
+  .imgBottomLeft {
+    width: 22rem !important;
+    left: 5% !important;
+  }
+  .imgBottomRight {
+    width: 22rem !important;
+    right: 5% !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Tablet Landscape */
+  .imgTop {
+    width: 20rem !important;
+    top: -15% !important;
+  }
+  /* On tablets, we might want to show the side images but smaller, or hide them if they clash. 
+     The original code had 'hidden md:block', meaning visible on 768+. */
+  .imgLeft {
+    width: 16rem !important;
+    left: 2% !important;
+    top: 50% !important;
+  }
+  .imgRight {
+    width: 16rem !important;
+    right: 2% !important;
+    top: 50% !important;
+  }
+  .imgBottomLeft {
+    width: 18rem !important;
+    left: 2% !important;
+    bottom: 5% !important;
+  }
+  .imgBottomRight {
+    width: 18rem !important;
+    right: 2% !important;
+    bottom: 5% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tablet Portrait / Large Mobile */
+  /* Tailwind 'md' breakpoint is 768px. Below this, 'hidden' applies to side images automatically via Tailwind classes. 
+     So we only need to style the visible ones or override visibility if we choose to show them. 
+     We'll stick to the original design's hiding behavior for cleaner mobile look, but adjust the Top image which is visible. */
+  
+  .imgTop {
+    width: 16rem !important; /* w-64 */
+    top: -12% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Mobile */
+  .imgTop {
+    width: 60% !important; /* Wider for mobile vertical */
+    top: -24% !important; /* Push down slightly so it's not cut off by browser bar */
+    aspect-ratio: 9 / 16 !important; /* Vertical ratio */
+  }
+
+  .imgLeft {
+    display: block !important; /* Force visible */
+    width: 60% !important;
+    left: -40% !important;
+    top: 33% !important;
+  }
+
+  .imgRight {
+    display: block !important; /* Force visible */
+    width: 60% !important;
+    right: -40% !important;
+    top: 33% !important;
+  }
+
+  /* Bottom Center Image (using BottomLeft as the container) */
+  .imgBottomLeft {
+    display: block !important;
+    width: 20% !important;
+    left: 0% !important;
+    bottom: 20% !important;
+    aspect-ratio: 9 / 16 !important; /* Vertical ratio */
+  }
+
+  /* Hide the other bottom image */
+  .imgBottomRight {
+    display: block !important;
+    width: 20% !important;
+    right: 0% !important;
+    bottom: 20% !important;
+    aspect-ratio: 9 / 16 !important; /* Vertical ratio */
+  }
+
+}
+
 .layer2 {
   position: absolute;
   z-index: 10;
@@ -107,6 +241,12 @@
   object-fit: cover;
 }
 
+@media (max-width: 768px) {
+  .heroVideo {
+    scale: 1.2; /* Zoom in a bit more on mobile to fill height nicely */
+  }
+}
+
 .layer3 {
   position: absolute;
   z-index: 30;
@@ -122,6 +262,13 @@
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+@media (max-width: 640px) {
+  .layer3 {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
 }
 
 .formTitle {
@@ -164,4 +311,3 @@
   font-family: var(--font-pontano);
   opacity: 0.8;
 }
-

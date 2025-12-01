@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 import { ChevronDown, Mail, ArrowUpRight } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -57,9 +57,19 @@ export default function LandingPage() {
   );
 }
 
-function ScrollContent({ progress }: { progress: any }) {
+function ScrollContent({ progress }: { progress: MotionValue<number> }) {
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const animateImages = () => {
     if (!imageContainerRef.current || !videoContainerRef.current) return;
@@ -82,13 +92,29 @@ function ScrollContent({ progress }: { progress: any }) {
   const contentScale = useTransform(progress, [0, 0.2], [1, 0.95]);
 
   // Hero Image Expansion (0 -> 0.5)
-  const heroWidth = useTransform(progress, [0, 0.5], ["30%", "100%"]);
-  const heroHeight = useTransform(progress, [0, 0.5], ["25%", "100%"]);
-  const heroBottom = useTransform(progress, [0, 0.5], ["-5%", "0%"]);
-  
-  const heroContainerWidth = useTransform(progress, [0, 0.5], ["30%", "100%"]);
-  const heroContainerHeight = useTransform(progress, [0, 0.5], ["30vh", "100vh"]);
-  const heroContainerBottom = useTransform(progress, [0, 0.5], ["-15vh", "0vh"]);
+  // Desktop values
+  const desktopHeroWidth = useTransform(progress, [0, 0.5], ["30%", "100%"]);
+  const desktopHeroHeight = useTransform(progress, [0, 0.5], ["25%", "100%"]);
+  const desktopHeroBottom = useTransform(progress, [0, 0.5], ["-5%", "0%"]);
+  const desktopHeroContainerWidth = useTransform(progress, [0, 0.5], ["30%", "100%"]);
+  const desktopHeroContainerHeight = useTransform(progress, [0, 0.5], ["30vh", "100vh"]);
+  const desktopHeroContainerBottom = useTransform(progress, [0, 0.5], ["-15vh", "0vh"]);
+
+  // Mobile values
+  const mobileHeroWidth = useTransform(progress, [0, 0.5], ["80%", "100%"]);
+  const mobileHeroHeight = useTransform(progress, [0, 0.5], ["40%", "100%"]);
+  const mobileHeroBottom = useTransform(progress, [0, 0.5], ["-5%", "0%"]);
+  const mobileHeroContainerWidth = useTransform(progress, [0, 0.5], ["60%", "100%"]);
+  const mobileHeroContainerHeight = useTransform(progress, [0, 0.5], ["40vh", "100vh"]);
+  const mobileHeroContainerBottom = useTransform(progress, [0, 0.5], ["-20vh", "0vh"]);
+
+  // Select values based on state
+  const heroWidth = isMobile ? mobileHeroWidth : desktopHeroWidth;
+  const heroHeight = isMobile ? mobileHeroHeight : desktopHeroHeight;
+  const heroBottom = isMobile ? mobileHeroBottom : desktopHeroBottom;
+  const heroContainerWidth = isMobile ? mobileHeroContainerWidth : desktopHeroContainerWidth;
+  const heroContainerHeight = isMobile ? mobileHeroContainerHeight : desktopHeroContainerHeight;
+  const heroContainerBottom = isMobile ? mobileHeroContainerBottom : desktopHeroContainerBottom;
   
   // New Section Content (Form) (0.5 -> 0.8)
   const formOpacity = useTransform(progress, [0.4, 0.6], [0, 1]);
@@ -119,23 +145,38 @@ function ScrollContent({ progress }: { progress: any }) {
 
         {/* Floating Images */}
         {/* Top Center */}
-        <div className="absolute top-[-10%] md:top-[-10%] left-1/2 -translate-x-1/2 w-48 md:w-128 aspect-video filter brightness-60 reveal-image" style={{ opacity: 0 }}>
+        <div className={cn(
+          "absolute top-[-10%] md:top-[-10%] left-1/2 -translate-x-1/2 w-48 md:w-128 aspect-video filter brightness-60 reveal-image",
+          styles.imgTop
+        )} style={{ opacity: 0 }}>
            <img src={IMAGES[0]} className={styles.floatingImageImg} />
         </div>
         {/* Middle Left */}
-        <div className="absolute top-64 left-[-10%] md:left-[-10%] -translate-y-1/2 w-40 md:w-128 aspect-video hidden md:block reveal-image" style={{ opacity: 0 }}>
+        <div className={cn(
+          "absolute top-64 left-[-10%] md:left-[-10%] -translate-y-1/2 w-40 md:w-128 aspect-video hidden md:block reveal-image",
+          styles.imgLeft
+        )} style={{ opacity: 0 }}>
           <img src={IMAGES[1]} className={styles.floatingImageImg} />
         </div>
         {/* Middle Right */}
-        <div className="absolute top-64 right-[-10%] md:right-[-10%] -translate-y-1/2 w-40 md:w-128 aspect-video hidden md:block reveal-image" style={{ opacity: 0 }}>
+        <div className={cn(
+          "absolute top-64 right-[-10%] md:right-[-10%] -translate-y-1/2 w-40 md:w-128 aspect-video hidden md:block reveal-image",
+          styles.imgRight
+        )} style={{ opacity: 0 }}>
           <img src={IMAGES[2]} className={styles.floatingImageImg} />
         </div>
         {/* Bottom Left */}
-        <div className="absolute bottom-4 md:bottom-[-10%] left-4 md:left-[-10%] w-72 md:w-128 aspect-video hidden md:block reveal-image" style={{ opacity: 0 }}>
+        <div className={cn(
+          "absolute bottom-4 md:bottom-[-10%] left-4 md:left-[-10%] w-72 md:w-128 aspect-video hidden md:block reveal-image",
+          styles.imgBottomLeft
+        )} style={{ opacity: 0 }}>
            <img src={IMAGES[3]} className={styles.floatingImageImg} />
         </div>
         {/* Bottom Right */}
-        <div className="absolute bottom-4 md:bottom-[-10%] right-4 md:right-[-10%] w-72 md:w-128 aspect-video hidden md:block reveal-image" style={{ opacity: 0 }}>
+        <div className={cn(
+          "absolute bottom-4 md:bottom-[-10%] right-4 md:right-[-10%] w-72 md:w-128 aspect-video hidden md:block reveal-image",
+          styles.imgBottomRight
+        )} style={{ opacity: 0 }}>
            <img src={IMAGES[4]} className={styles.floatingImageImg} />
         </div>
       </motion.div>

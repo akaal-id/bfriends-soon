@@ -28,6 +28,14 @@
   margin-bottom: 1rem;
 }
 
+@media (max-width: 640px) {
+  .heroSubtitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    margin-bottom: 0.75rem;
+  }
+}
+
 @media (min-width: 768px) {
   .heroSubtitle {
     font-size: 0.75rem;
@@ -45,6 +53,29 @@
 @media (min-width: 768px) {
   .heroTitle {
     font-size: 3.6rem;
+  }
+}
+
+/* Responsive adjustments for Hero Title below 1680px */
+@media (max-width: 1440px) {
+  .heroTitle {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroTitle {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroTitle {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 }
 

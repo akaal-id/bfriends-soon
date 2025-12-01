@@ -9,12 +9,44 @@
   justify-content: center;
   z-index: 50;
   pointer-events: none;
+  transition: top 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .logoHeader {
+    top: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .logoHeader {
+    top: 2rem;
+  }
 }
 
 .logoImage {
   height: 6rem;
   object-fit: contain;
   opacity: 0.9;
+  transition: height 0.3s ease;
+}
+
+@media (max-width: 1440px) {
+  .logoImage {
+    height: 5.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .logoImage {
+    height: 4.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .logoImage {
+    height: 4rem;
+  }
 }
 
 .logoText {

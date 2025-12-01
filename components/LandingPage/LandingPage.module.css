@@ -138,30 +138,30 @@
 @media (max-width: 1024px) {
   /* Tablet Landscape */
   .imgTop {
-    width: 20rem !important;
-    top: -15% !important;
+    width: 36rem !important;
+    top: 0% !important;
   }
   /* On tablets, we might want to show the side images but smaller, or hide them if they clash. 
      The original code had 'hidden md:block', meaning visible on 768+. */
   .imgLeft {
-    width: 16rem !important;
-    left: 2% !important;
-    top: 50% !important;
+    width: 32rem !important;
+    left: -28% !important;
+    top: 33% !important;
   }
   .imgRight {
-    width: 16rem !important;
-    right: 2% !important;
-    top: 50% !important;
+    width: 32rem !important;
+    right: -28% !important;
+    top: 33% !important;
   }
   .imgBottomLeft {
-    width: 18rem !important;
-    left: 2% !important;
-    bottom: 5% !important;
+    width: 36rem !important;
+    left: -34% !important;
+    bottom: 15% !important;
   }
   .imgBottomRight {
-    width: 18rem !important;
-    right: 2% !important;
-    bottom: 5% !important;
+    width: 36rem !important;
+    right: -34% !important;
+    bottom: 15% !important;
   }
 }
 

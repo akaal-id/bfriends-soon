@@ -60,15 +60,22 @@ export default function LandingPage() {
 function ScrollContent({ progress }: { progress: MotionValue<number> }) {
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [screenSize, setScreenSize] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      if (width <= 640) {
+        setScreenSize('mobile');
+      } else if (width <= 1024) {
+        setScreenSize('tablet');
+      } else {
+        setScreenSize('desktop');
+      }
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   const animateImages = () => {
@@ -92,7 +99,8 @@ function ScrollContent({ progress }: { progress: MotionValue<number> }) {
   const contentScale = useTransform(progress, [0, 0.2], [1, 0.95]);
 
   // Hero Image Expansion (0 -> 0.5)
-  // Desktop values
+  
+  // 1. Desktop values (> 1024px)
   const desktopHeroWidth = useTransform(progress, [0, 0.5], ["30%", "100%"]);
   const desktopHeroHeight = useTransform(progress, [0, 0.5], ["25%", "100%"]);
   const desktopHeroBottom = useTransform(progress, [0, 0.5], ["-5%", "0%"]);
@@ -100,7 +108,15 @@ function ScrollContent({ progress }: { progress: MotionValue<number> }) {
   const desktopHeroContainerHeight = useTransform(progress, [0, 0.5], ["30vh", "100vh"]);
   const desktopHeroContainerBottom = useTransform(progress, [0, 0.5], ["-15vh", "0vh"]);
 
-  // Mobile values
+  // 2. Tablet values (<= 1024px) - EDIT THESE FOR TABLET
+  const tabletHeroWidth = useTransform(progress, [0, 0.5], ["50%", "100%"]);
+  const tabletHeroHeight = useTransform(progress, [0, 0.5], ["35%", "100%"]);
+  const tabletHeroBottom = useTransform(progress, [0, 0.5], ["-5%", "0%"]);
+  const tabletHeroContainerWidth = useTransform(progress, [0, 0.5], ["56%", "100%"]);
+  const tabletHeroContainerHeight = useTransform(progress, [0, 0.5], ["35vh", "100vh"]);
+  const tabletHeroContainerBottom = useTransform(progress, [0, 0.5], ["-10vh", "0vh"]);
+
+  // 3. Mobile values (<= 640px) - EDIT THESE FOR MOBILE
   const mobileHeroWidth = useTransform(progress, [0, 0.5], ["80%", "100%"]);
   const mobileHeroHeight = useTransform(progress, [0, 0.5], ["40%", "100%"]);
   const mobileHeroBottom = useTransform(progress, [0, 0.5], ["-5%", "0%"]);
@@ -109,12 +125,18 @@ function ScrollContent({ progress }: { progress: MotionValue<number> }) {
   const mobileHeroContainerBottom = useTransform(progress, [0, 0.5], ["-20vh", "0vh"]);
 
   // Select values based on state
-  const heroWidth = isMobile ? mobileHeroWidth : desktopHeroWidth;
-  const heroHeight = isMobile ? mobileHeroHeight : desktopHeroHeight;
-  const heroBottom = isMobile ? mobileHeroBottom : desktopHeroBottom;
-  const heroContainerWidth = isMobile ? mobileHeroContainerWidth : desktopHeroContainerWidth;
-  const heroContainerHeight = isMobile ? mobileHeroContainerHeight : desktopHeroContainerHeight;
-  const heroContainerBottom = isMobile ? mobileHeroContainerBottom : desktopHeroContainerBottom;
+  const getResponsiveValue = (desktop: any, tablet: any, mobile: any) => {
+    if (screenSize === 'mobile') return mobile;
+    if (screenSize === 'tablet') return tablet;
+    return desktop;
+  };
+
+  const heroWidth = getResponsiveValue(desktopHeroWidth, tabletHeroWidth, mobileHeroWidth);
+  const heroHeight = getResponsiveValue(desktopHeroHeight, tabletHeroHeight, mobileHeroHeight);
+  const heroBottom = getResponsiveValue(desktopHeroBottom, tabletHeroBottom, mobileHeroBottom);
+  const heroContainerWidth = getResponsiveValue(desktopHeroContainerWidth, tabletHeroContainerWidth, mobileHeroContainerWidth);
+  const heroContainerHeight = getResponsiveValue(desktopHeroContainerHeight, tabletHeroContainerHeight, mobileHeroContainerHeight);
+  const heroContainerBottom = getResponsiveValue(desktopHeroContainerBottom, tabletHeroContainerBottom, mobileHeroContainerBottom);
   
   // New Section Content (Form) (0.5 -> 0.8)
   const formOpacity = useTransform(progress, [0.4, 0.6], [0, 1]);

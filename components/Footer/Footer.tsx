@@ -57,7 +57,7 @@ export default function Footer() {
 
           {/* Column 4: Newsletter */}
           <div className={styles.column2}>
-            <h3 className={styles.heading}>Stay Updated</h3>
+            <h3 className={styles.heading}>Get our latest updates,<i className="font-semibold text-bfriends-orange-100"> friends!</i></h3>
             {!isSubmitted ? (
               <form className={styles.newsletterForm} onSubmit={handleSubmit}>
                 <div className={styles.newsletterInputWrapper}>
@@ -89,11 +89,6 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className={styles.bottomBar}>
           <p>&copy; {new Date().getFullYear()} BFriends. All rights reserved.</p>
-          <div className={styles.legalLinks}>
-            <Link href="#" className={styles.legalLink}>Privacy Policy</Link>
-            <Link href="#" className={styles.legalLink}>Terms of Service</Link>
-            <Link href="#" className={styles.legalLink}>Cookies Settings</Link>
-          </div>
         </div>
       </div>
     </footer>

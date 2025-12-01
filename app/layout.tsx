@@ -16,21 +16,21 @@ const pontanoSans = Pontano_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "B Friends | Kerobokan Wellness Center | Opening 2026",
-  description: "A wellness journey that begins with becoming a friend to yourself. Join B Friends in Kerobokan, Bali. Gym, Spa, and Community. Opening 2026.",
-  keywords: ["wellness", "gym", "spa", "bali", "kerobokan", "b friends", "recovery", "health", "fitness", "community"],
-  authors: [{ name: "B Friends" }],
+  title: "bfriends | Kerobokan Wellness Center | Opening 2026",
+  description: "A wellness journey that begins with becoming a friend to yourself. Join bfriends in Kerobokan, Bali. Gym, Spa, and Community. Opening 2026.",
+  keywords: ["wellness", "gym", "spa", "bali", "kerobokan", "bfriends", "recovery", "health", "fitness", "community"],
+  authors: [{ name: "bfriends" }],
   openGraph: {
-    title: "B Friends | Kerobokan Wellness Center",
+    title: "bfriends | Kerobokan Wellness Center",
     description: "A wellness journey that begins with becoming a friend to yourself. Opening soon in 2026.",
     url: "https://bfriends.id", // Placeholder URL, update when deployed
-    siteName: "B Friends",
+    siteName: "bfriends",
     images: [
       {
         url: "/images/icons/logo-bfriends hor.png",
         width: 1200,
         height: 630,
-        alt: "B Friends Logo",
+        alt: "bfriends Logo",
       },
     ],
     locale: "en_US",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "B Friends - Kerobokan Wellness Center",
+    title: "bfriends - Kerobokan Wellness Center",
     description: "A wellness journey that begins with becoming a friend to yourself. Opening soon in 2026.",
     images: ["/images/icons/logo-bfriends hor.png"],
   },

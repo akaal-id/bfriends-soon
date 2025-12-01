@@ -8,7 +8,7 @@ export default function LogoHeader() {
     <div className={styles.logoHeader}>
       <img 
         src="/images/icons/logo-bfriends ver.png" 
-        alt="B Friends" 
+        alt="bfriends" 
         className={styles.logoImage} 
       />
       <span className={styles.logoText}>

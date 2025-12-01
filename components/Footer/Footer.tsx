@@ -7,10 +7,37 @@ import styles from "./Footer.module.css";
 
 export default function Footer() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    
+    if (email && !isSubmitting) {
+      setIsSubmitting(true);
+      
+      // Google Form submission details
+      const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSclRqNzLi-46Dnn36_fYoOP1XCw9EAcIAt8U_xAEjHPuKQBGg/formResponse";
+      const ENTRY_ID = "entry.18557205";
+
+      const formData = new FormData();
+      formData.append(ENTRY_ID, email);
+
+      try {
+        await fetch(GOOGLE_FORM_ACTION_URL, {
+          method: "POST",
+          mode: "no-cors",
+          body: formData,
+        });
+        
+        setIsSubmitted(true);
+        setEmail("");
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
   };
 
   return (
@@ -21,7 +48,7 @@ export default function Footer() {
           <div className={styles.column1}>
             <img 
               src="/images/icons/logo-bfriends hor.png" 
-              alt="B Friends" 
+              alt="bfriends" 
               className={styles.logo} 
 
             />
@@ -36,9 +63,9 @@ export default function Footer() {
           <div className={styles.column}>
             <h3 className={styles.heading}>BLife Ecosystem</h3>
             <nav className={styles.menuList}>
-              <Link href="#" className={styles.menuItem}>BWork</Link>
-              <Link href="#" className={styles.menuItem}>BNesta</Link>
-              <Link href="#" className={styles.menuItem}>BLive</Link>
+              <a href="https://bwork.id" target="_blank" rel="noopener noreferrer" className={styles.menuItem}>BWork</a>
+              <a href="https://bnesta.id" target="_blank" rel="noopener noreferrer" className={styles.menuItem}>BNesta</a>
+              <a href="https://blive.id" target="_blank" rel="noopener noreferrer" className={styles.menuItem}>BLive</a>
             </nav>
           </div>
 
@@ -63,14 +90,17 @@ export default function Footer() {
                 <div className={styles.newsletterInputWrapper}>
                   <input 
                     type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email" 
                     required
                     className={styles.newsletterInput}
+                    disabled={isSubmitting}
                   />
                 </div>
-                <button className={styles.submitButton}>
+                <button className={styles.submitButton} disabled={isSubmitting} style={{ opacity: isSubmitting ? 0.7 : 1 }}>
                   <span className={styles.submitButtonText}>
-                    Subscribe
+                    {isSubmitting ? "Subscribing..." : "Subscribe"}
                   </span>
                   <span className={styles.submitButtonIcon}>
                     <ArrowUpRight size={16} />
@@ -94,4 +124,3 @@ export default function Footer() {
     </footer>
   );
 }
-

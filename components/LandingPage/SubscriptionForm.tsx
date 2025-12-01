@@ -8,12 +8,36 @@ import styles from "./SubscriptionForm.module.css";
 export default function SubscriptionForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setIsSubmitted(true);
-      setEmail("");
+    if (email && !isSubmitting) {
+      setIsSubmitting(true);
+      
+      // Google Form submission details
+      const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSclRqNzLi-46Dnn36_fYoOP1XCw9EAcIAt8U_xAEjHPuKQBGg/formResponse";
+      const ENTRY_ID = "entry.18557205";
+
+      const formData = new FormData();
+      formData.append(ENTRY_ID, email);
+
+      try {
+        await fetch(GOOGLE_FORM_ACTION_URL, {
+          method: "POST",
+          mode: "no-cors", // Required for Google Forms
+          body: formData,
+        });
+        
+        // We assume success because 'no-cors' gives an opaque response
+        setIsSubmitted(true);
+        setEmail("");
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        // Optionally handle error state here
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -42,13 +66,16 @@ export default function SubscriptionForm() {
                 placeholder="Your email address"
                 required
                 className={styles.inputField}
+                disabled={isSubmitting}
               />
             </div>
             <button
               className={styles.submitButton}
+              disabled={isSubmitting}
+              style={{ opacity: isSubmitting ? 0.7 : 1 }}
             >
               <span className={styles.submitButtonText}>
-                Join Waiting List
+                {isSubmitting ? "Joining..." : "Join Waiting List"}
               </span>
               <span className={styles.submitButtonIcon}>
                 <ArrowUpRight className="w-5 h-5" />
@@ -90,4 +117,3 @@ export default function SubscriptionForm() {
     </div>
   );
 }
-

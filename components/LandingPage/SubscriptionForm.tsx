@@ -30,8 +30,8 @@ export default function SubscriptionForm() {
         });
         
         // We assume success because 'no-cors' gives an opaque response
-        setIsSubmitted(true);
-        setEmail("");
+      setIsSubmitted(true);
+      setEmail("");
       } catch (error) {
         console.error("Error submitting form:", error);
         // Optionally handle error state here

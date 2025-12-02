@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   keywords: ["wellness", "gym", "spa", "bali", "kerobokan", "bfriends", "recovery", "health", "fitness", "community"],
   authors: [{ name: "BFriends" }],
   openGraph: {
-    title: "bfriends | Kerobokan Wellness Center",
+    title: "BFriends | Kerobokan Wellness Center",
     description: "A wellness journey that begins with becoming a friend to yourself. Opening soon in 2026.",
     url: "https://bfriends.id", // Placeholder URL, update when deployed
     siteName: "BFriends",

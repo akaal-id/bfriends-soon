@@ -52,7 +52,7 @@
     align-items: center;
     text-align: center;
   }
-}
+  }
 
 .column {
   display: flex;
@@ -102,6 +102,15 @@
   line-height: 1.6;
   opacity: 0.8;
   max-width: 250px;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  display: block; /* ensure it behaves like a block/p tag */
+}
+
+.address:hover {
+  opacity: 1;
+  color: var(--color-bfriends-orange-100);
 }
 
 @media (max-width: 768px) {

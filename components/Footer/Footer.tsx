@@ -52,11 +52,16 @@ export default function Footer() {
               className={styles.logo} 
 
             />
-            <p className={styles.address}>
+            <a 
+              href="https://www.google.com/maps/place/BFriends/@-8.6737222,115.1769167,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd2470066210b17:0xc0f7dfddf84e65e1!8m2!3d-8.6737222!4d115.1769167!16s%2Fg%2F11x1g61ntz?entry=ttu&g_ep=EgoyMDI1MTEyMy4xIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.address}
+            >
               Jl. Teuku Umar Barat No.989x,
               Kerobokan Kelod, Kec. Kuta Utara,
               Kabupaten Badung, Bali 80117
-            </p>
+            </a>
           </div>
 
           {/* Column 2: BLife Ecosystem */}
@@ -73,9 +78,6 @@ export default function Footer() {
           <div className={styles.column}>
             <h3 className={styles.heading}>Contact Us</h3>
             <nav className={styles.menuList}>
-              <a href="https://instagram.com/bfriends.bali" target="_blank" rel="noopener noreferrer" className={styles.menuItem}>
-                Instagram @bfriends.bali
-              </a>
               <a href="mailto:hello@bfriends.id" className={styles.menuItem}>
                 hello@bfriends.id
               </a>
